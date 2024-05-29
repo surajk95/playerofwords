@@ -1,9 +1,9 @@
-import Image from "next/image";
 import styles from "./page.module.css";
 import Input from "./components/input";
 import Score from "./components/score";
 import Graph from "./components/graph";
 import Options from "./components/options";
+import Error from "./components/error";
 
 export default function Home() {
 
@@ -13,6 +13,7 @@ export default function Home() {
       <div className={styles.appContainer}>
         <div className={styles.mainContent}>
           <Input />
+          <Error />
           <Score />
           <Graph />
         </div>

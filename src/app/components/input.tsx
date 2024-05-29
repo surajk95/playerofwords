@@ -6,6 +6,7 @@ export default function Input(props: any) {
     const [input, setInput] = useState<string>('')
     const initDictionary = useScoreStore(state => state.initDictionary);
     const validate = useScoreStore(state => state.validate);
+    const resetState = useScoreStore(state => state.resetState);
 
     useEffect(() => {
         initDictionary();
@@ -18,7 +19,9 @@ export default function Input(props: any) {
     const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (input.trim() !== '') {
-            validate(input)
+            const flag = validate(input)
+            console.log(`validation`, flag)
+            if (flag) setInput('')
         }
     }
     return (
@@ -31,6 +34,7 @@ export default function Input(props: any) {
                     autoFocus
                 />
             </form>
+            <div onClick={resetState}>reset</div>
         </div>
     )
 }
