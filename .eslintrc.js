@@ -4,8 +4,9 @@ module.exports = {
   "parser": "@typescript-eslint/parser",
   "plugins": ["@typescript-eslint"],
   "rules": {
+    "no-unused-vars": "warn",
+    "no-undef": "warn",
     indent: ['error', 2],
-    // we want to avoid extraneous spaces
     'no-multi-spaces': ['error'],
   }
 }
