@@ -1,8 +1,15 @@
 'use client'
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useScoreStore } from "./store"
 
 export default function Input(props: any) {
     const [input, setInput] = useState<string>('')
+    const initDictionary = useScoreStore(state => state.initDictionary);
+    const validate = useScoreStore(state => state.validate);
+
+    useEffect(() => {
+        initDictionary();
+    }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.value.includes(' ')) setInput(event.target.value);
@@ -11,7 +18,7 @@ export default function Input(props: any) {
     const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (input.trim() !== '') {
-            props.handleSubmit()
+            validate(input)
         }
     }
     return (
