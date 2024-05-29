@@ -2,6 +2,7 @@ import { create } from "zustand";
 import createDictionary from "dictionary-trie";
 
 interface ScoreState {
+  loading: boolean,
   score: number;
   speed: number;
   suffix: string;
@@ -19,6 +20,7 @@ interface ScoreState {
 }
 
 export const useScoreStore = create<ScoreState>((set, get) => ({
+  loading: false,
   score: 0,
   speed: 0,
   suffix: "tion",
@@ -26,7 +28,7 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
   enteredWords: {},
   increaseScore: () => set((state) => ({ score: state.score + 1 })),
   resetState: () => {
-    set({ score: 0, speed: 0 });
+    set({ score: 0, speed: 0, startTime: null });
   },
   setSuffix: (val) => {
     get().resetState();
@@ -34,9 +36,9 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
   },
   dictionary: [],
   initDictionary: async () => {
+    set({ loading: true })
     const words = (await import(`./words_dictionary.json`)).default;
-    console.log(`imported`, words);
-    set({ dictionary: createDictionary(Object.keys(words)) });
+    set({ loading: false, dictionary: createDictionary(Object.keys(words)) });
   },
   startTime: null,
 
@@ -46,7 +48,8 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
     if (!val.endsWith(suffix)) {
       set({ error: `Word does not end with ${suffix}.` });
     } else if (enteredWords[val]) {
-      set({ error: "You have already typed that." });
+      set({ error: `You have already typed ${val}.` });
+      return true;
     } else {
       const hasWord = get().dictionary.includes(val);
       if (hasWord) {
@@ -56,11 +59,10 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
         let speed = 0;
         if (startTime) {
           let endTime = new Date();
-          let timeDiff = endTime.getTime() - startTime.getTime(); //in ms
-          //Strip the ms, convert to minutes.
+          let timeDiff = endTime.getTime() - startTime.getTime(); // in ms
+          // Strip the ms, convert to minutes.
           let timeDiffInMinutes = timeDiff / (1000 * 60);
-          speed = Math.round(score / timeDiffInMinutes);
-          console.log(`speed`, timeDiff, timeDiffInMinutes, speed);
+          speed = Math.round((score + 1) / ((score * speed) + timeDiffInMinutes));
         }
         set((state) => ({
           startTime: new Date(),

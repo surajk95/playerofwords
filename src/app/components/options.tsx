@@ -1,13 +1,20 @@
 'use client'
 import { useScoreStore } from "./store"
 import { useShallow } from "zustand/react/shallow"
+import styles from './options.module.css'
 
 const options = [
     'tion',
     'sion',
     'ous',
+    'or',
     'er',
     'ment',
+    'al',
+    'el',
+    'ogy',
+    'my',
+    'ny'
 ]
 
 export default function Options() {
@@ -16,18 +23,17 @@ export default function Options() {
     )
 
     return (
-        <div>Enter words ending with:
+        <div className={styles.options}>
+            <div className={styles.prompt}>Enter words ending with:</div>
             {
                 options.map(option => (
-                    <span key={option} className={suffix === option ? 'activeSuffix' : ''}>
-                        <input
-                            type="radio"
-                            name="suffix"
-                            checked={suffix == option}
-                            onChange={() => setSuffix(option)}
-                        />
+                    <div
+                        key={option}
+                        className={`${styles.option} ${suffix === option ? styles.activeSuffix : ''}`}
+                        onClick={() => setSuffix(option)}
+                    >
                         {option}
-                    </span>
+                    </div>
                 ))
             }
         </div>

@@ -13,7 +13,7 @@ export default function Input(props: any) {
     }, [])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        if (!event.target.value.includes(' ')) setInput(event.target.value);
+        if (!event.target.value.includes(' ')) setInput(event.target.value.toLowerCase());
     }
 
     const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {

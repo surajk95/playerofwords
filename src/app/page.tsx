@@ -4,6 +4,7 @@ import Score from "./components/score";
 import Graph from "./components/graph";
 import Options from "./components/options";
 import Error from "./components/error";
+import Loader from "./components/loader";
 
 export default function Home() {
 
@@ -12,6 +13,7 @@ export default function Home() {
       <h1 className={styles.appTitle}>Player of words</h1>
       <div className={styles.appContainer}>
         <div className={styles.mainContent}>
+          <Loader />
           <Input />
           <Error />
           <Score />
