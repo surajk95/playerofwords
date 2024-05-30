@@ -2,6 +2,7 @@
 import { useScoreStore } from "./store"
 import { useShallow } from "zustand/react/shallow"
 import styles from './options.module.css'
+import { secondaryFont } from "@/config/fonts"
 
 const options = [
     'tion',
@@ -23,8 +24,8 @@ export default function Options() {
     )
 
     return (
-        <div className={styles.options}>
-            <div className={styles.prompt}>Enter words ending with:</div>
+        <div className={`${styles.options} ${secondaryFont.className}`}>
+            <div className={styles.prompt}>Choose a suffix:</div>
             {
                 options.map(option => (
                     <div

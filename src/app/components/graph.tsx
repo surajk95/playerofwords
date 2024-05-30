@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useState } from "react"
 import { useScoreStore } from "./store"
-import { Sparklines, SparklinesCurve, SparklinesSpots } from 'react-sparklines';
+import { Sparklines, SparklinesCurve } from 'react-sparklines';
 import { useShallow } from "zustand/react/shallow";
+import styles from './graph.module.css'
 
 export default function Graph() {
     const { speed, startTime } = useScoreStore(
@@ -21,11 +22,9 @@ export default function Graph() {
     }, [startTime])
 
     return (
-        <div style={{ width: '100%', height: '200px' }}>
-            Graph
-            <Sparklines data={speedList} limit={20}>
-                <SparklinesCurve style={{ fill: "none", strokeWidth: 3 }} />
-                <SparklinesSpots />
+        <div className={styles.graphContainer} style={{ width: '100%', height: '200px' }}>
+            <Sparklines data={speedList} limit={10}>
+                <SparklinesCurve style={{ fill: "none", strokeWidth: 3, stroke: 'white' }} />
             </Sparklines>
         </div>
     )

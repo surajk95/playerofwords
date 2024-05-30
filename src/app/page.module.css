@@ -1,13 +1,16 @@
 .main {
   display: flex;
   padding: 6rem;
-  min-height: 100vh;
+  height: 100vh;
 }
 
 .appTitle {
   position: absolute;
   left: 15px;
   top: 15px;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5rem;
 }
 
 .appContainer {
@@ -18,19 +21,19 @@
 
 .mainContent {
   flex-basis: 60%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.scoreHeader {
+  font-size: 2rem;
+  letter-spacing: 0.3rem;
 }
 
 /* Enable hover only on non-touch devices */
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    background: rgba(var(--card-rgb), 0.1);
-    border: 1px solid rgba(var(--card-border-rgb), 0.15);
-  }
-
-  .card:hover span {
-    transform: translateX(4px);
-  }
-}
+@media (hover: hover) and (pointer: fine) {}
 
 @media (prefers-reduced-motion) {
   .card:hover span {
@@ -39,7 +42,15 @@
 }
 
 /* Mobile */
-@media (max-width: 700px) {}
+@media (max-width: 1024px) {
+  .main {
+    padding: 2rem;
+  }
+
+  .appContainer {
+    flex-direction: column;
+  }
+}
 
 /* Tablet and Smaller Desktop */
 @media (min-width: 701px) and (max-width: 1120px) {}

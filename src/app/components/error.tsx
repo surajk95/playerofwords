@@ -5,6 +5,6 @@ export default function Error() {
     const error = useScoreStore((state) => (state.error))
 
     return (
-        <div>{error}</div>
+        <div className="error">{error}</div>
     )
 }

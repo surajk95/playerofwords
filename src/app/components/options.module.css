@@ -1,6 +1,8 @@
 .options {
+    padding: 0 50px;
     flex-basis: 40%;
-    font-size: 22px;
+    height: fit-content;
+    font-size: 1.2rem;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
@@ -8,18 +10,16 @@
 
 .prompt {
     flex-basis: 100%;
+    margin-bottom: 50px;
 }
 
 .option {
     padding: 5px 20px;
-    margin: 5px 0;
+    margin: 10px 2px;
     cursor: pointer;
     width: fit-content;
     height: fit-content;
-}
-
-.option:first-child {
-    margin-top: 20px;
+    transition: background 0.15s ease;
 }
 
 .option.activeSuffix {

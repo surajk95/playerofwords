@@ -17,6 +17,7 @@ interface ScoreState {
   initDictionary: () => void;
   validate: (val: string) => boolean;
   startTime: Date | null;
+  totalTimeDiff: 0;
 }
 
 export const useScoreStore = create<ScoreState>((set, get) => ({
@@ -28,7 +29,7 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
   enteredWords: {},
   increaseScore: () => set((state) => ({ score: state.score + 1 })),
   resetState: () => {
-    set({ score: 0, speed: 0, startTime: null });
+    set({ score: 0, speed: 0, startTime: null, enteredWords: {}, error: null });
   },
   setSuffix: (val) => {
     get().resetState();
@@ -38,10 +39,10 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
   initDictionary: async () => {
     set({ loading: true })
     const words = (await import(`./words_dictionary.json`)).default;
-    set({ loading: false, dictionary: createDictionary(Object.keys(words)) });
+    set({ loading: false, dictionary: createDictionary(Object.keys(words)), startTime: new Date() });
   },
   startTime: null,
-
+  totalTimeDiff: 0,
   validate: (val) => {
     const suffix = get().suffix;
     const enteredWords = get().enteredWords;
@@ -53,16 +54,17 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
     } else {
       const hasWord = get().dictionary.includes(val);
       if (hasWord) {
-        console.log(`correct`);
         const startTime = get().startTime;
         let score = get().score;
+        let totalTimeDiff = get().totalTimeDiff;
         let speed = 0;
         if (startTime) {
           let endTime = new Date();
           let timeDiff = endTime.getTime() - startTime.getTime(); // in ms
           // Strip the ms, convert to minutes.
           let timeDiffInMinutes = timeDiff / (1000 * 60);
-          speed = Math.round((score + 1) / ((score * speed) + timeDiffInMinutes));
+          totalTimeDiff += timeDiffInMinutes
+          speed = Math.round((score + 1) / totalTimeDiff);
         }
         set((state) => ({
           startTime: new Date(),
@@ -70,6 +72,7 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
           error: null,
           score: state.score + 1,
           enteredWords: { ...enteredWords, [val]: 1 },
+          totalTimeDiff,
         }));
         return true;
       } else {

@@ -5,17 +5,19 @@ import Graph from "./components/graph";
 import Options from "./components/options";
 import Error from "./components/error";
 import Loader from "./components/loader";
+import { secondaryFont } from "@/config/fonts";
 
 export default function Home() {
 
   return (
     <main className={styles.main}>
-      <h1 className={styles.appTitle}>Player of words</h1>
+      <h1 className={`${styles.appTitle} ${secondaryFont.className}`}>Player<br />of<br />words</h1>
       <div className={styles.appContainer}>
         <div className={styles.mainContent}>
           <Loader />
           <Input />
           <Error />
+          <div className={styles.scoreHeader}>Score</div>
           <Score />
           <Graph />
         </div>

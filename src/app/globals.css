@@ -1,6 +1,7 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
+  font-size: 14px;
 }
 
 * {
@@ -17,7 +18,7 @@ body {
 
 body {
   color: white;
-  background: black;
+  background: linear-gradient(to right, #F43B3B, #7D2222);
 }
 
 a {
@@ -25,8 +26,26 @@ a {
   text-decoration: none;
 }
 
+.error {
+  height: 100px;
+  text-align: center;
+  font-size: 1.5rem;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     color-scheme: dark;
   }
+
+  /* Mobile */
+  @media (max-width: 1024px) {
+    .error {
+      height: 50px;
+    }
+  }
+
+  /* body {
+    color: white;
+    background: linear-gradient(to right, #272727, #1B1B1B);
+  } */
 }

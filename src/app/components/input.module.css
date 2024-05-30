@@ -1,0 +1,33 @@
+.inputContainer {
+    text-align: center;
+}
+
+.input {
+    font-size: 6rem;
+    letter-spacing: 0.17rem;
+    background: inherit;
+    border: none;
+    border-bottom: solid 1px white;
+    padding: 30px 10px;
+    margin: 50px 0 100px 0;
+    width: 70%;
+    font-family: inherit;
+    text-align: center;
+}
+
+.input::placeholder {
+    color: rgb(255, 255, 255, 0.2);
+}
+
+.input:focus {
+    outline: none;
+}
+
+/* Mobile */
+@media (max-width: 1024px) {
+    .input {
+        font-size: 2rem;
+        width: 100%;
+        margin: 50px 0;
+    }
+}

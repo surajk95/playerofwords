@@ -1,16 +1,21 @@
 'use client'
 import { useEffect, useState } from "react"
 import { useScoreStore } from "./store"
+import styles from './input.module.css'
 
 export default function Input(props: any) {
     const [input, setInput] = useState<string>('')
     const initDictionary = useScoreStore(state => state.initDictionary);
     const validate = useScoreStore(state => state.validate);
-    const resetState = useScoreStore(state => state.resetState);
+    const enteredWords = useScoreStore(state => state.enteredWords);
 
     useEffect(() => {
         initDictionary();
     }, [])
+
+    useEffect(() => {
+        setInput('')
+    }, [enteredWords])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (!event.target.value.includes(' ')) setInput(event.target.value.toLowerCase());
@@ -19,22 +24,20 @@ export default function Input(props: any) {
     const handleSubmit = (event: React.SyntheticEvent<HTMLFormElement>) => {
         event.preventDefault();
         if (input.trim() !== '') {
-            const flag = validate(input)
-            console.log(`validation`, flag)
-            if (flag) setInput('')
+            validate(input)
         }
     }
     return (
-        <div>
+        <div className={styles.inputContainer}>
             <form onSubmit={handleSubmit}>
                 <input
-                    placeholder="Start typing here"
+                    placeholder="type here"
                     value={input}
                     onChange={handleChange}
                     autoFocus
+                    className={styles.input}
                 />
             </form>
-            <div onClick={resetState}>reset</div>
         </div>
     )
 }
