@@ -12,6 +12,12 @@
   text-transform: uppercase;
   letter-spacing: 0.5rem;
 }
+.attribution {
+  position: absolute;
+  right: 25px;
+  top: 15px;
+  font-size: 0.9rem;
+}
 
 .appContainer {
   height: 100%;
