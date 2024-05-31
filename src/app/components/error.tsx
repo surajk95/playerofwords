@@ -2,9 +2,9 @@
 import { useScoreStore } from './store'
 
 export default function Error() {
-    const error = useScoreStore((state) => (state.error))
+  const error = useScoreStore((state) => (state.error))
 
-    return (
-        <div className="error">{error}</div>
-    )
+  return (
+    <div className="error">{error}</div>
+  )
 }

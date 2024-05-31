@@ -2,7 +2,7 @@ import { create } from "zustand";
 import createDictionary from "dictionary-trie";
 
 interface ScoreState {
-  loading: boolean,
+  loading: boolean;
   score: number;
   speed: number;
   suffix: string;
@@ -37,9 +37,13 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
   },
   dictionary: [],
   initDictionary: async () => {
-    set({ loading: true })
+    set({ loading: true });
     const words = (await import(`./words_dictionary.json`)).default;
-    set({ loading: false, dictionary: createDictionary(Object.keys(words)), startTime: new Date() });
+    set({
+      loading: false,
+      dictionary: createDictionary(Object.keys(words)),
+      startTime: new Date(),
+    });
   },
   startTime: null,
   totalTimeDiff: 0,
@@ -55,15 +59,15 @@ export const useScoreStore = create<ScoreState>((set, get) => ({
       const hasWord = get().dictionary.includes(val);
       if (hasWord) {
         const startTime = get().startTime;
-        let score = get().score;
+        const score = get().score;
         let totalTimeDiff = get().totalTimeDiff;
         let speed = 0;
         if (startTime) {
-          let endTime = new Date();
-          let timeDiff = endTime.getTime() - startTime.getTime(); // in ms
+          const endTime = new Date();
+          const timeDiff = endTime.getTime() - startTime.getTime(); // in ms
           // Strip the ms, convert to minutes.
-          let timeDiffInMinutes = timeDiff / (1000 * 60);
-          totalTimeDiff += timeDiffInMinutes
+          const timeDiffInMinutes = timeDiff / (1000 * 60);
+          totalTimeDiff += timeDiffInMinutes;
           speed = Math.round((score + 1) / totalTimeDiff);
         }
         set((state) => ({
